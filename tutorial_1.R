@@ -33,6 +33,9 @@ raw_data <- readr::read_csv("data/passenger_data.csv")
 readr::read_csv("data/passenger_data.csv") -> raw_data 
 
 # Quick glance at the data
+# Install skimr
+install.packages("skimr")
+library(skimr)
 
 skimr::skim(raw_data)
 
@@ -49,8 +52,12 @@ raw_data %>%
 # Task:
 
 # i. Select Age and Sex columns only 
+SelectData1 <- raw_data %>%
+  dplyr::select(Age, Sex)
 
 # ii. Select all data apart from the Survived column
+SelectData2 <- raw_data %>%
+  dplyr::select(-Survived)
 
 # iii. Select the first three variables using numeric 
 
