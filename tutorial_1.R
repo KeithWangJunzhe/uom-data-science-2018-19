@@ -60,37 +60,69 @@ SelectData2 <- raw_data %>%
   dplyr::select(-Survived)
 
 # iii. Select the first three variables using numeric 
+Selected_Data3 <- raw_data %>%
+  dplyr::select(1:3)
 
 # Filtering data
 
 # i. Filter data to keep only those where Pclass (passenger class) is equal to 1
-
+filtered_data1 <- raw_data %>%
+  dplyr::filter(Pclass == 3)
+  
 # 11. Filter the data to keep only data where there's first 
 #     class passengers and passengers are aged over 50
+filtered_data2 <- raw_data %>%
+  dplyr::filter(Pclass == 1 & Age > 50)
 
 # iii. Filter data to keep only 2nd and 3rd Class passengers 
-
+filtered_data3 <- raw_data %>%
+  dplyr::filter(Pclass == 3 | Pclass ==2)
 # iv. Filter data for only those who Embarked n the journey from Cherbourg
-
+filtered_data3 <- raw_data %>%
+  dplyr::filter(Embarked == "C")
 # Renaming data
 
 # i. Rename the Sex column to be Gender, 
 
 # tip: rename(new_column_name = old_column_name)
-
+renamed_data1 <- raw_data %>%
+  dplyr::rename(Gender = Sex)
 # Arranging data
 
 # i. Arrange the dataframe from low to high 
-
+arranged_data1 <- raw_data %>%
+  dplyr::arrange(Age)
 # ii. Arrange Fare data from high to low
-
+arranged_data2 <- raw_data %>%
+  dplyr::arrange(desc(Fare))
 # Make new variablea (mutate)
 
 # i. Create a new variable called fare_in_dollars, multiplying the fare by a conversion rate of 1.37
-
+american_data <- raw_data %>%
+  dplyr::mutate(fare_in_dollars = Fare * 1.37)
 # ii. Create an estimate of a passengers birth year by using their Age information!
+DOB_estimation <- raw_data %>%
+  dplyr::mutate(DOB_estimation = round(1912 - Age)) %>%
+  arrange(DOB_estimation)
+# iii. Create a flag to indicate those who have an above average age (29.70)
+raw_data %>%
+  dplyr::group_by(Pclass) %>%
+  dplyr::summarise(average_age = mean(Age, na.rm = TRUE))
 
-# iii. Create a flag to indicate those who have an above average income (£29.70)
+raw_data %>%
+  dplyr::group_by(Sex) %>%
+  dplyr::summarise(average_age = mean(Age, na.rm = TRUE))
+
+raw_data %>%
+  dplyr::group_by(Sex) %>%
+  dplyr::summarise(average_fare = mean(Fare, na.rm = TRUE))
+
+raw_data %>%
+  dplyr::group_by(Sex, Pclass) %>%
+  dplyr::summarise(average_fare = mean(Fare, na.rm = TRUE))
+#Flags
+Data_with_flag <- raw_data %>%
+  dplyr::mutate(above_average_age = ifelse(age>29.7,1,0))
 
 # Summary statistics - refer to the booklet for tasks! 
 
@@ -135,3 +167,5 @@ ggplot()
 
 # Make an interactive scatterplot 
 # - Note that you'll need the `ploty` package to do this!
+
+
