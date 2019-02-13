@@ -157,13 +157,29 @@ table(raw_data$Sex)
 # 5. Graphics with ggplot2 ----
 
 # Make your first ggplot2 bar chart! 
-ggplot() 
+ggplot(data = raw_data, aes(x = Pclass)) + geom_bar() 
 
 # Make a filled bar chart 
-
+ggplot(raw_data, aes(x = Pclass, fill = Sex)) + geom_bar(position = "fill")
 # Make a ggplot2 with a theme
+ggplot(raw_data, aes(x = Pclass, fill = Sex)) + geom_bar(position = "fill") + 
+  theme_minimal() +
+  labs(title = "Men outnumbered women across all passenger class",
+       subtitle = "On the titanic disaster",
+       x = "Passenger class",
+       y = "Proportion of Male/female",
+       caption = "Source: National archives")
 
 # Make a scatterplot
+ggplot(data = raw_data, aes(
+  x = Age,
+  y = Fare,
+  colour = as.factor(Pclass)
+)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_minimal()+
+  scale_color_manual(values = c ("red","blue", "orange"))
 
 # Make an interactive scatterplot 
 # - Note that you'll need the `ploty` package to do this!
